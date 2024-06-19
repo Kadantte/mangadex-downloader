@@ -18,10 +18,12 @@ A command-line tool to download manga from [MangaDex](https://mangadex.org/), wr
 - [Installation](#installation)
     - [Python Package Index (PyPI)](#installation-pypi)
     - [Bundled executable](#installation-bundled-executable)
+    - [Docker](#installation-docker)
     - [Development version](#installation-development-version)
 - [Usage](#usage)
     - [PyPI version](#usage-pypi-version)
     - [Bundled executable version](#usage-bundled-executable-version)
+    - [Docker version](#usage-docker-version)
 - [Contributing](#contributing)
 - [Donation](#donation)
 - [Support](#support)
@@ -101,6 +103,37 @@ Steps:
 - That's it ! You have successfully install mangadex-downloader. 
 [See this instructions to run mangadex-downloader](#usage-bundled-executable-version)
 
+### Docker <a id="installation-docker"></a>
+
+Available at:
+- https://hub.docker.com/r/mansuf/mangadex-downloader
+- https://gallery.ecr.aws/mansuf/mangadex-downloader
+
+```sh
+# Dockerhub
+docker pull mansuf/mangadex-downloader
+
+# AWS ECR (Alternative)
+docker pull public.ecr.aws/mansuf/mangadex-downloader
+```
+
+If you want to get optional features such as `EPUB` support, `cb7` support, etc.
+You can use tag ending with `-optional`
+
+```sh
+# Dockerhub
+docker pull mansuf/mangadex-downloader:latest-optional
+docker pull mansuf/mangadex-downloader:v2.10.3-optional
+
+# AWS ECR (Alternative)
+docker pull public.ecr.aws/mansuf/mangadex-downloader:latest-optional
+docker pull public.ecr.aws/mansuf/mangadex-downloader:v2.10.3-optional
+```
+
+**NOTE**: If you're wondering why optional tags doesn't have arm/v6 platform support. 
+That's because some dependencies (most notably `orjson`) require rust compiler 
+and i give up installing rust compiler in arm/v6 platform, there is too much errors for me. 
+
 ### Development version <a id="installation-development-version"></a>
 
 **NOTE:** You must have git installed. If you don't have it, install it from here https://git-scm.com/.
@@ -144,6 +177,18 @@ mangadex-dl.exe "insert MangaDex URL here"
 ```
 
 ![example_usage_executable](https://raw.githubusercontent.com/mansuf/mangadex-downloader/main/assets/example_usage_executable.png)
+
+### Docker version <a id="usage-docker-version"></a>
+
+The downloaded files in the container are stored in `/downloads` directory
+
+```sh
+# Dockerhub
+docker run --rm -v /home/sussyuser/sussymanga:/downloads mansuf/mangadex-downloader "insert MangaDex URL"
+
+# AWS ECR (alternative)
+docker run --rm -v /home/sussyuser/sussymanga:/downloads public.ecr.aws/mansuf/mangadex-downloader "insert MangaDex URL"
+```
 
 For more example usage, you can [read here](https://mangadex-dl.mansuf.link/en/stable/cli_usage/index.html)
 
