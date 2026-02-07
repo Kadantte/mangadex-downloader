@@ -1,5 +1,99 @@
 # Changelog
 
+## v3.1.4
+
+### Fix bugs
+
+- Fix UnicodeEncodeError when saving manga info in json format
+- Fix comic book (.cbz) title metadata [#155](https://github.com/mansuf/mangadex-downloader/pull/155)
+- Fix memory leak ? (progress 1)
+- Fix application is being falsely flagged by several AVs [#157](https://github.com/mansuf/mangadex-downloader/issues/157)
+- Fix volume cover become null when creating chapter info [#159](https://github.com/mansuf/mangadex-downloader/issues/159)
+- Fix check_login throwing error when refreshing token from cache [#158](https://github.com/mansuf/mangadex-downloader/issues/158)
+
+## v3.1.3
+
+### Fix bugs
+
+- Fix --use-alt-details is not working due to missing language (lang: Georgian) [#154](https://github.com/mansuf/mangadex-downloader/issues/154)
+- Fix chapter cover doesn't work due to CoverArtIterator cache issue [#152](https://github.com/mansuf/mangadex-downloader/issues/152)
+- Fix volume number not in EPUB title resulting duplicated entry in comic reader [#149](https://github.com/mansuf/mangadex-downloader/issues/149)
+
+## v3.1.2
+
+### Fix bugs
+
+- Fixed application is left hanging when download is completed (report system is not working) [#146](https://github.com/mansuf/mangadex-downloader/issues/146)
+- Fixed validator always not passed for "group_nomatch_behaviour" config
+- Fixed negative value when rate-limited [#147](https://github.com/mansuf/mangadex-downloader/issues/147)
+
+## v3.1.1
+
+### Fix bugs
+
+- Fixed migration is not applied properly [#136](https://github.com/mansuf/mangadex-downloader/issues/136) [#133](https://github.com/mansuf/mangadex-downloader/issues/133) [#134](https://github.com/mansuf/mangadex-downloader/issues/134)
+
+### Documentation
+
+- Fix typo in documentation and source code [#130](https://github.com/mansuf/mangadex-downloader/pull/130)
+
+## v3.1.0
+
+### New features
+
+- Added `mihon` manga info format (`--manga-info-format`)
+
+### Fix bugs
+
+- Fixed `--update` option is not working in bundled executable version when updating from v2 to v3
+- Fixed `FileNotFoundError` when using `--create-manga-info` with `--manga-info-format=json` [#129](https://github.com/mansuf/mangadex-downloader/issues/129)
+- Fixed `--use-volume-cover` always use main cover [#131](https://github.com/mansuf/mangadex-downloader/issues/131)
+- Fixed `--no-track` isn't working after updating to v3.0.0 [#133](https://github.com/mansuf/mangadex-downloader/issues/133)
+
+## v3.0.0
+
+### Breaking changes
+
+- Change `--path` behaviour to absolute path with placeholders support
+- Now, if a manga that doesn't have no volume, it will get separated (chapters format) rather than being merged into single file called `No volume.cbz` (example). However if you prefer old behaviour (merge no volume chapters into single file) you can use `--create-no-volume`.
+- Dropped support for Python v3.8 and v3.9
+- Removed `--no-progress-bar` option since it's deprecated (use `--progress-bar-layout=none` instead)
+- Removed `--verbose` option since it's deprecated (use `--log-level=DEBUG` instead)
+- Removed `--write-tachiyomi-details` option
+
+### Improvements
+
+- Refactored code base using ruff linter and black formatter
+- The app now showing `X-Request-ID` if the app encountered `Unhandled HTTP error` that can be reported to MangaDex devs
+- Missing dependencies error is now closing the application (do not ignore it)
+- `ComicInfo.xml` file are now generated for volumes as well
+- Options `--start-page` and `--end-page` are now support negative values (relative to end of chapter)
+
+### New features
+
+- Added `--login-api-id` and `--login-api-secret` to login with OAuth (you must set `--login-method` with value `oauth`)
+- Added `--start-volume` and `--end-volume` to start and stop download chapter from given volume number
+- Added `--filename-chapter` option to set filename for chapter formats
+- Added `--filename-volume` option to set filename for volume formats
+- Added `--filename-single` option to set filename for single formats
+- Added `--ignore-missing-chapters` option to ignore missing chapters
+- Added `--create-manga-info` option to store manga information in a file
+- Added `--manga-info-format` option to change file format for manga information file
+- Added `--manga-info-filepath` option to change location to store manga information file.
+- Added `--manga-info-only` option to download manga information only (no chapters and volumes)
+- Added `--order` option to change chapters released order (newest or oldest)
+- Added `--group-nomatch-behaviour` to manage `--group` filter behaviour
+- Added `--no-metadata` option to disable metadata creation on any cbz formats
+- Added `--page-size` option to manage maximum items fit per page in any commands
+- Added `--run-forever` to run the app indefinitely until crashed or stopped manually by user
+
+### Fix bugs
+
+- Fix `download.db` is modified if there is not new chapters available. 
+- Fix `epub-volume` format doesn't adding cover art
+- Fix default volume covers behaviour. (See [#105](https://github.com/mansuf/mangadex-downloader/issues/105) for more info)
+- Fix app stopped downloading list when a manga doesn't have chapters
+
 ## v2.10.3
 
 ### Fix bugs
@@ -58,7 +152,7 @@
 
 ### Fix bugs
 
-- Fix error message is not showing when chapters with specified langauge is not found
+- Fix error message is not showing when chapters with specified language is not found
 - Fixed `--type` are not respecting full URL
 
 ### Dependencies
@@ -131,9 +225,9 @@
 
 - Reworked creation chapter info (cover) [#44](https://github.com/mansuf/mangadex-downloader/issues/44)
 
-### Dependecies
+### Dependencies
 
-- [Pillow](https://pypi.org/project/pillow/) is now required dependecies (no longer optional)
+- [Pillow](https://pypi.org/project/pillow/) is now required dependencies (no longer optional)
 
 ## v2.6.2
 
@@ -172,10 +266,10 @@
 
 - Rework how to download latest chapters on various formats. See commit [`865b7f5`](https://github.com/mansuf/mangadex-downloader/commit/865b7f5988a9cd92e21112ac8649a29299b5023f) for more info
 
-### Dependecies
+### Dependencies
 
 - Bump orjson to v3.8.3
-- [beautifulsoup4](https://pypi.org/project/beautifulsoup4/) are now required dependecies (no longer optional)
+- [beautifulsoup4](https://pypi.org/project/beautifulsoup4/) are now required dependencies (no longer optional)
 
 ### Breaking changes
 
@@ -262,7 +356,7 @@
 
 - Fixed progress bar are not hidden when `--no-progress-bar` is used
 
-### Dependecies
+### Dependencies
 
 - Bump Pillow to v9.3.0
 - Bump py7zr to v0.20.2
@@ -710,7 +804,7 @@ PyPI version is broken, the bug is already fixed in v0.5.1
 
 - Fixed sometimes manga are failed to get volumes 
 - Fixed additional info manga are not appeared in Tachiyomi local 
-- Fixed uncomplete artists and authors in manga 
+- Fixed incomplete artists and authors in manga 
 - Fixed app still running when `--start-chapter` are more than `--end-chapter` 
 - Fixed app throwing error if one of chapters has no images 
 - Added auth handler. If login and logout is failed it will try again 5 times, if still failed it will exit (login) or ignored (logout) 

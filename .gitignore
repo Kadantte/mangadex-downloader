@@ -6,3 +6,6 @@ docs/_build
 bugs.txt
 ideas.txt
 *.db
+env
+build/
+dist/

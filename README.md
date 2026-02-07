@@ -3,7 +3,6 @@
 [![pypi-release-ver](https://img.shields.io/pypi/v/mangadex-downloader?style=for-the-badge)](https://pypi.org/project/mangadex-downloader)
 [![](https://dcbadge.limes.pink/api/server/NENvQ5b5Pt)](https://discord.gg/NENvQ5b5Pt)
 
-
 # mangadex-downloader
 
 [![Indonesian](https://img.shields.io/badge/Language-Indonesian-blue.svg)](https://github.com/mansuf/mangadex-downloader/blob/main/README.id.md)
@@ -18,10 +17,12 @@ A command-line tool to download manga from [MangaDex](https://mangadex.org/), wr
 - [Installation](#installation)
     - [Python Package Index (PyPI)](#installation-pypi)
     - [Bundled executable](#installation-bundled-executable)
+    - [Docker](#installation-docker)
     - [Development version](#installation-development-version)
 - [Usage](#usage)
     - [PyPI version](#usage-pypi-version)
     - [Bundled executable version](#usage-bundled-executable-version)
+    - [Docker version](#usage-docker-version)
 - [Contributing](#contributing)
 - [Donation](#donation)
 - [Support](#support)
@@ -33,16 +34,17 @@ A command-line tool to download manga from [MangaDex](https://mangadex.org/), wr
 - Download manga, cover manga, chapter, or list directly from MangaDex
 - Download manga or list from user library
 - Find and download MangaDex URLs from MangaDex forums ([https://forums.mangadex.org/](https://forums.mangadex.org/))
+- Download manga in each chapters, each volumes, or wrap all chapters into single file
+- Search (with filters) and download manga
+- Filter chapters with scalantion groups or users
+- Manga tags, groups, and users blacklist support
 - Batch download support
-- Legacy MangaDex url support
-- Scanlation groups filter support
-- Authentication support
+- Authentication (with cache) support
 - Control how many chapters and pages you want to download
-- Compressed images support
-- HTTP / SOCKS proxy support
-- DNS-over-HTTPS support
 - Multi languages support
+- Legacy MangaDex url support
 - Save as raw images, EPUB, PDF, Comic Book Archive (.cbz or .cb7)
+- Respect API rate limit
 
 ***And ability to not download oneshot chapter***
 
@@ -54,7 +56,7 @@ A command-line tool to download manga from [MangaDex](https://mangadex.org/), wr
 
 What will you need:
 
-- Python 3.8.x or up with Pip (if you are in Windows, you can download bundled executable. [See this instructions how to install it](#installation-bundled-executable))
+- Python 3.10.x or up with Pip (if you are in Windows, you can download bundled executable. [See this instructions how to install it](#installation-bundled-executable))
 
 That's it.
 
@@ -101,6 +103,37 @@ Steps:
 - That's it ! You have successfully install mangadex-downloader. 
 [See this instructions to run mangadex-downloader](#usage-bundled-executable-version)
 
+### Docker <a id="installation-docker"></a>
+
+Available at:
+- https://hub.docker.com/r/mansuf/mangadex-downloader
+- https://gallery.ecr.aws/mansuf/mangadex-downloader
+
+```sh
+# Dockerhub
+docker pull mansuf/mangadex-downloader
+
+# AWS ECR (Alternative)
+docker pull public.ecr.aws/mansuf/mangadex-downloader
+```
+
+If you want to get optional features such as `EPUB` support, `cb7` support, etc.
+You can use tag ending with `-optional`
+
+```sh
+# Dockerhub
+docker pull mansuf/mangadex-downloader:latest-optional
+docker pull mansuf/mangadex-downloader:v3.1.4-optional
+
+# AWS ECR (Alternative)
+docker pull public.ecr.aws/mansuf/mangadex-downloader:latest-optional
+docker pull public.ecr.aws/mansuf/mangadex-downloader:v3.1.4-optional
+```
+
+**NOTE**: If you're wondering why optional tags doesn't have arm/v6 platform support. 
+That's because some dependencies (most notably `orjson`) require rust compiler 
+and i give up installing rust compiler in arm/v6 platform, there is too much errors for me. 
+
 ### Development version <a id="installation-development-version"></a>
 
 **NOTE:** You must have git installed. If you don't have it, install it from here https://git-scm.com/.
@@ -144,6 +177,18 @@ mangadex-dl.exe "insert MangaDex URL here"
 ```
 
 ![example_usage_executable](https://raw.githubusercontent.com/mansuf/mangadex-downloader/main/assets/example_usage_executable.png)
+
+### Docker version <a id="usage-docker-version"></a>
+
+The downloaded files in the container are stored in `/downloads` directory
+
+```sh
+# Dockerhub
+docker run --rm -v /home/sussyuser/sussymanga:/downloads mansuf/mangadex-downloader "insert MangaDex URL"
+
+# AWS ECR (alternative)
+docker run --rm -v /home/sussyuser/sussymanga:/downloads public.ecr.aws/mansuf/mangadex-downloader "insert MangaDex URL"
+```
 
 For more example usage, you can [read here](https://mangadex-dl.mansuf.link/en/stable/cli_usage/index.html)
 

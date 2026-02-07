@@ -1,18 +1,16 @@
 # Download tracker
 
-Everytime you download a manga, chapter or list. 
+Every time you download a manga, chapter or list. 
 The application will write `download.db` file into manga folder. 
 But what does it do ? does it dangerous ? the file seems suspicious.
 
 Worry not, the file is not dangerous. It's called download tracker, 
-it will track chapters and images everytime you download. 
+it will track chapters and images every time you download. 
 So next time you run the application, it will check what chapters has been downloaded 
 and if the application found chapters that has not been downloaded yet, 
 the application will download them all.
 
-## Wait isn't that same behaviour as previous one ?
-
-Yes, download tracker is designed to avoid rate-limit frequently from MangaDex API on some formats. 
+Download tracker is designed to avoid rate-limit frequently from MangaDex API on some formats. 
 Also it check latest chapters on any `volume` and `single` formats. 
 So let's say you already downloaded `Volume 1`, but there is new chapter on `Volume 1`. 
 The application will re-download `Volume 1`.
